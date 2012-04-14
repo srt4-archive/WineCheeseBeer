@@ -19,15 +19,12 @@ public class WineCheeseBeerActivity extends Activity {
         setContentView(R.layout.main);
         Button b = (Button) findViewById(R.id.scan);
         b.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View arg0) {
-				
-			}
-        	
+		        IntentIntegrator integrator = new IntentIntegrator(WineCheeseBeerActivity.this);
+		        integrator.initiateScan();
+			}   	
         });
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.initiateScan();
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
