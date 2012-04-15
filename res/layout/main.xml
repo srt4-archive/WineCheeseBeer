@@ -18,6 +18,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="48dp" />
 
-    <ExpandableListView android:layout_width="match_parent" android:id="@android:id/list" android:layout_height="wrap_content"></ExpandableListView>
+    <ExpandableListView 
+        android:layout_width="match_parent" 
+        android:id="@android:id/list" 
+        android:layout_height="wrap_content">
+    </ExpandableListView>
 
 </LinearLayout>
