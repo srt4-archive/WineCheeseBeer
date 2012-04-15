@@ -1,5 +1,6 @@
 package com.winecheesebeer;
 
+import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,14 +8,16 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-public class MyExpandableListAdapter extends BaseExpandableListAdapter {
+
+	 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         // Sample data set.  children[i] contains the children (String[]) for groups[i].
-        private String[] groups = { "poop", "water", "carrots" };
-        private String[][] children = {
-                { "water", "potatoes", "oil" },
-                { "oil",  "preservative1", "preservative2" },
-                { "Vitamin C", "Vitamin A" },
-        };
+    	private String[] groups = { "hydrogen", "oxygen" };
+        private String[][] children = {{"Hydrogen is your mom"}, {"oxygen is not your mom"} };
+        public Activity parent;
+        
+        public void setActivity(Activity a){
+        	parent = a;
+        }
 
         public Object getChild(int groupPosition, int childPosition) {
             return children[groupPosition][childPosition];
@@ -33,7 +36,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, 64);
 
-            TextView textView = new TextView(ExpandableList1.this);
+            TextView textView = new TextView(parent);
             textView.setLayoutParams(lp);
             // Center the text vertically
             textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
@@ -76,19 +79,4 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             return true;
         }
 
-		@Override
-		public View getChildView(int groupPosition, int childPosition,
-				boolean isLastChild, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public View getGroupView(int groupPosition, boolean isExpanded,
-				View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-    }
 }

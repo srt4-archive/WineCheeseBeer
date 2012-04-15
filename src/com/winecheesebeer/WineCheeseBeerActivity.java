@@ -1,49 +1,48 @@
 package com.winecheesebeer;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.winecheesebeer.MyExpandableListAdapter;
 import com.winecheesebeer.models.Ingredient;
 import com.winecheesebeer.models.Item;
 import com.winecheesebeer.models.ItemCollection;
 
-public class WineCheeseBeerActivity extends Activity {
+public class WineCheeseBeerActivity extends ExpandableListActivity {
 	
 	private ItemCollection<String, Item> ic;
-	 
+	public ExpandableListAdapter mAdapter;
     /** Called when the activity is first created. */
-	
-	ExpandableListAdapter mAdapter;
-	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +61,7 @@ public class WineCheeseBeerActivity extends Activity {
         });
         
         mAdapter = new MyExpandableListAdapter();
+        ((MyExpandableListAdapter) mAdapter).setActivity(this);
         setListAdapter(mAdapter);
         registerForContextMenu(getExpandableListView());
         
@@ -92,8 +92,8 @@ public class WineCheeseBeerActivity extends Activity {
     		for (Ingredient singleIng : ings) {
     			ingredients.add(singleIng.toString());
     		}
-    		ListView lv = (ListView) findViewById(R.id.list);
-    		lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients));
+    		ExpandableListView lv = (ExpandableListView) findViewById(android.R.id.list);
+    		lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.expandable_list_content, ingredients));
        }
     }
     
@@ -128,8 +128,8 @@ public class WineCheeseBeerActivity extends Activity {
 					
 				}
     			
-    	        ListView lv = (ListView) findViewById(R.id.list);
-    	        lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingreds));
+    	        ExpandableListView lv = (ExpandableListView) findViewById(android.R.id.list);
+    	        lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.expandable_list_content, ingreds));
 				((TextView)findViewById(R.id.barCode)).setText(j.getString("name"));
 			}
 		} catch (Exception e) {
@@ -141,3 +141,6 @@ public class WineCheeseBeerActivity extends Activity {
 		
     }
 }
+
+
+
