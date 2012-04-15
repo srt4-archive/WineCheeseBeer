@@ -49,14 +49,14 @@
         		
 	              <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="145dp"
-            android:layout_height="104dp"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
             android:src="@drawable/soy" />
 	              
 	                <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="145dp"
-            android:layout_height="104dp"
+            android:layout_width="105dp"
+            android:layout_height="30dp"
             android:src="@drawable/wheat" />
         </LinearLayout>	      
 	        
@@ -64,12 +64,6 @@
 
     </LinearLayout>
 
-    <ExpandableListView
-        android:id="@+id/expandableListView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android: >
-         
-    </ExpandableListView>
+    
    
 </LinearLayout>    
