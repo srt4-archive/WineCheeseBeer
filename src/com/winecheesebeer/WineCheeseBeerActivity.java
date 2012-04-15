@@ -1,6 +1,7 @@
 package com.winecheesebeer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -11,17 +12,22 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class WineCheeseBeerActivity extends Activity {
     /** Called when the activity is first created. */
@@ -35,8 +41,22 @@ public class WineCheeseBeerActivity extends Activity {
 			public void onClick(View arg0) {
 		        IntentIntegrator integrator = new IntentIntegrator(WineCheeseBeerActivity.this);
 		        integrator.initiateScan();
-			}   	
+			}
+			
         });
+        
+        ListView lv = (ListView) findViewById(R.id.list);
+        String[] ingredients = new String[] {"water", "poop", "carrots"};
+        lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients));
+        
+        lv.setOnItemClickListener(new OnItemClickListener() {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+              // When clicked, show a toast with the TextView text
+              Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
+                  Toast.LENGTH_SHORT).show();
+            }
+          });
+   
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
