@@ -1,5 +1,7 @@
 package com.winecheesebeer;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
@@ -8,12 +10,28 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.winecheesebeer.models.Ingredient;
+
 
 	 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         // Sample data set.  children[i] contains the children (String[]) for groups[i].
-    	private String[] groups = { "hydrogen", "oxygen" };
-        private String[][] children = {{"Hydrogen is your mom"}, {"oxygen is not your mom"} };
-        public Activity parent;
+    	private String[] groups;
+        private String[][] children;
+        private Activity parent;
+        
+        public MyExpandableListAdapter(ArrayList<Ingredient> ingredients){
+        	groups = new String[ingredients.size()];
+        	children = new String[ingredients.size()][10];
+        	for(int i = 0; i< ingredients.size(); i++){
+        		groups[i] = ingredients.get(i).name;
+        		children[i][0] = ingredients.get(i).description;
+        		//children[i][1] = ingredients.get(i).description;
+        		//children[i][2] = ingredients.get(i).description;
+
+        	}
+        }
+        
+        
         
         public void setActivity(Activity a){
         	parent = a;

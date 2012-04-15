@@ -33,7 +33,9 @@ public class WineCheeseBeerActivity extends ExpandableListActivity {
 	private ItemCollection<String, Item> ic;
 	public ExpandableListAdapter mAdapter;
     /** Called when the activity is first created. */
-    @Override
+    
+	
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
@@ -50,11 +52,7 @@ public class WineCheeseBeerActivity extends ExpandableListActivity {
 			
         });
         
-        mAdapter = new MyExpandableListAdapter();
-        ((MyExpandableListAdapter) mAdapter).setActivity(this);
-        setListAdapter(mAdapter);
-        registerForContextMenu(getExpandableListView());
-        
+
        /*ListView lv = (ListView) findViewById(R.id.list);
         String[] ingredients = new String[] {"water", "poop", "carrots"};
         lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients));
@@ -85,8 +83,13 @@ public class WineCheeseBeerActivity extends ExpandableListActivity {
     		ExpandableListView lv = (ExpandableListView) findViewById(android.R.id.list);
     		Display newDisplay = getWindowManager().getDefaultDisplay(); 
     		int width = newDisplay.getWidth();
-    		lv.setIndicatorBounds(width-50, width);
-    		lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.expandable_list_content, ingredients));
+            mAdapter = new MyExpandableListAdapter(ings);
+            ((MyExpandableListAdapter) mAdapter).setActivity(this);
+            setListAdapter(mAdapter);
+            registerForContextMenu(getExpandableListView());
+
+            //lv.setIndicatorBounds(width-50, width);
+    		//lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.expandable_list_content, ingredients));
        }
     }
     
