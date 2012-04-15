@@ -21,9 +21,12 @@ class ItemsController < ApplicationController
     if @item.nil?
       @item = Item.find_by_barcode(params[:id])
     end
+
+    @item.ingredients = Ingredient.where(:item_id => @item.id)
+
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @item }
+      format.json { render :json => @item.to_json(:include => :ingredients) }
     end
   end
 
