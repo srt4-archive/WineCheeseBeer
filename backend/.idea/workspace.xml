@@ -106,7 +106,7 @@
       <file leaf-file-name="item_ingredients_controller.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/item_ingredients_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="60" selection-start="934" selection-end="934" vertical-scroll-proportion="0.6106472">
+            <state line="25" column="44" selection-start="630" selection-end="630" vertical-scroll-proportion="0.3914405">
               <folding />
             </state>
           </provider>
@@ -709,7 +709,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/item_ingredients_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="60" selection-start="934" selection-end="934" vertical-scroll-proportion="0.6106472">
+        <state line="25" column="44" selection-start="630" selection-end="630" vertical-scroll-proportion="0.3914405">
           <folding />
         </state>
       </provider>
