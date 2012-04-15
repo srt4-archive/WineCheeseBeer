@@ -27,8 +27,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.winecheesebeer.models.Ingredient;
@@ -51,22 +49,24 @@ public class WineCheeseBeerActivity extends Activity {
         b.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-		        IntentIntegrator integrator = new IntentIntegrator(WineCheeseBeerActivity.this);
-		        integrator.initiateScan();
+		       IntentIntegrator integrator = new IntentIntegrator(WineCheeseBeerActivity.this);
+		       integrator.initiateScan();
 			}
 			
         });
         
-
+        ListView lv = (ListView) findViewById(R.id.list);
+        String[] ingredients = new String[] {"water", "poop", "carrots"};
+        lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients));
+        final String[] categories = new String[]{"main ingredients","preservatives"};
         
-        /*lv.setOnItemClickListener(new OnItemClickListener() {
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              // When clicked, show a toast with the TextView text
-              Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-                  Toast.LENGTH_SHORT).show();
+        lv.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		            Intent i = new Intent(WineCheeseBeerActivity.this, SecondActivity.class);
+		            i.putExtra("categories", categories);
+		            WineCheeseBeerActivity.this.startActivity(i);               
             }
-          });
-   	   */
+        });
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -84,43 +84,7 @@ public class WineCheeseBeerActivity extends Activity {
     		}
     		ListView lv = (ListView) findViewById(R.id.list);
     		lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients));
-    		
-    		//ItemCollection ic = new ItemCollection();
-    		if (false) {
-	    		try {
-	    			
-	    			
-	    			JSONObject j = getBarcode(scanResult.getContents());
-	
-	    			Log.v("TIMING", "Received http data");
-	    			
-	    			JSONArray jarray = j.getJSONArray("ingredients");
-	    			ArrayList<String> ingreds = new ArrayList<String>();
-	    			for (int i = 0; i < jarray.length(); i++) {
-	    				ingreds.add(((JSONObject)jarray.get(i)).getString("name"));
-	    			}
-	    			
-	    	      //  ListView lv = (ListView) findViewById(R.id.list);
-	    	      //  lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingreds));
-					
-				} catch (Exception e) {
-					 e.printStackTrace();
-				}
-    	  }
-    	Log.v("TIMING", "Done dislpaying JSON");
        }
-    }
-    
-    private JSONObject getBarcode(String barcode) throws ClientProtocolException, IOException, JSONException {
-    	HttpClient hc = new DefaultHttpClient();
-    	
-    	HttpGet g = new HttpGet("http://192.168.1.2:3000/items/" + barcode + ".json");
-    	Log.v("URL", "http://192.168.1.2:3000/items/" + barcode + ".json");
-    	HttpResponse hr = hc.execute(g);
-    	
-    	String response = EntityUtils.toString(hr.getEntity());
-    	Log.v("Response", (String) new JSONObject(response).get("name"));
-    	return new JSONObject(response);
     }
     
     private void fillIC() {
