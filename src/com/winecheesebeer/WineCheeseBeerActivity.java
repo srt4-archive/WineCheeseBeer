@@ -13,27 +13,17 @@ import org.json.JSONObject;
 import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Gravity;
-import android.view.MenuItem;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.winecheesebeer.MyExpandableListAdapter;
 import com.winecheesebeer.models.Ingredient;
 import com.winecheesebeer.models.Item;
 import com.winecheesebeer.models.ItemCollection;
@@ -93,6 +83,9 @@ public class WineCheeseBeerActivity extends ExpandableListActivity {
     			ingredients.add(singleIng.toString());
     		}
     		ExpandableListView lv = (ExpandableListView) findViewById(android.R.id.list);
+    		Display newDisplay = getWindowManager().getDefaultDisplay(); 
+    		int width = newDisplay.getWidth();
+    		lv.setIndicatorBounds(width-50, width);
     		lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.expandable_list_content, ingredients));
        }
     }
@@ -129,6 +122,9 @@ public class WineCheeseBeerActivity extends ExpandableListActivity {
 				}
     			
     	        ExpandableListView lv = (ExpandableListView) findViewById(android.R.id.list);
+    	        Display newDisplay = getWindowManager().getDefaultDisplay(); 
+        		int width = newDisplay.getWidth();
+        		lv.setIndicatorBounds(width-50, width);
     	        lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.expandable_list_content, ingreds));
 				((TextView)findViewById(R.id.barCode)).setText(j.getString("name"));
 			}
