@@ -18,15 +18,10 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ListView
-        android:id="@+id/list"
+    <ExpandableListView
+        android:id="@+id/expandableListView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-    </ListView>
-    
-    <ListView
-        android:id="@+id/list2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+    </ExpandableListView>
+
 </LinearLayout>

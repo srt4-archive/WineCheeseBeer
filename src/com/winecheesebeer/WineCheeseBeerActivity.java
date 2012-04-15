@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,13 +23,18 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-public class WineCheeseBeerActivity extends Activity {
+public class WineCheeseBeerActivity extends ExpandableListActivity {
     /** Called when the activity is first created. */
+	
+	ExpandableListAdapter mAdapter;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +49,11 @@ public class WineCheeseBeerActivity extends Activity {
 			
         });
         
-        ListView lv = (ListView) findViewById(R.id.list);
+        mAdapter = new MyExpandableListAdapter();
+        setListAdapter(mAdapter);
+        registerForContextMenu(getExpandableListView());
+        
+       /*ListView lv = (ListView) findViewById(R.id.list);
         String[] ingredients = new String[] {"water", "poop", "carrots"};
         lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients));
         final String[] categories = new String[]{"main ingredients","preservatives"};
@@ -55,7 +65,7 @@ public class WineCheeseBeerActivity extends Activity {
             i.putExtra("categories", categories);
             WineCheeseBeerActivity.this.startActivity(i);               
             }
-        });
+        });*/
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
