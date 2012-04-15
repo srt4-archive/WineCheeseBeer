@@ -17,10 +17,12 @@ public final class R {
         public static final int barCode=0x7f050001;
         public static final int list=0x7f050002;
         public static final int list2=0x7f050003;
+        public static final int listView1=0x7f050004;
         public static final int scan=0x7f050000;
     }
     public static final class layout {
         public static final int main=0x7f030000;
+        public static final int poop=0x7f030001;
     }
     public static final class string {
         public static final int app_name=0x7f040001;

@@ -24,8 +24,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -39,8 +37,8 @@ public class WineCheeseBeerActivity extends Activity {
         b.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-		        IntentIntegrator integrator = new IntentIntegrator(WineCheeseBeerActivity.this);
-		        integrator.initiateScan();
+		       IntentIntegrator integrator = new IntentIntegrator(WineCheeseBeerActivity.this);
+		       integrator.initiateScan();
 			}
 			
         });
@@ -48,15 +46,16 @@ public class WineCheeseBeerActivity extends Activity {
         ListView lv = (ListView) findViewById(R.id.list);
         String[] ingredients = new String[] {"water", "poop", "carrots"};
         lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients));
+        final String[] categories = new String[]{"main ingredients","preservatives"};
         
         lv.setOnItemClickListener(new OnItemClickListener() {
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              // When clicked, show a toast with the TextView text
-              Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-                  Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view,
+                int position, long id) {
+            Intent i = new Intent(WineCheeseBeerActivity.this, SecondActivity.class);
+            i.putExtra("categories", categories);
+            WineCheeseBeerActivity.this.startActivity(i);               
             }
-          });
-   
+        });
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
