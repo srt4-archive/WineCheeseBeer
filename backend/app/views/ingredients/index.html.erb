@@ -12,7 +12,11 @@
 <% @ingredients.each do |ingredient| %>
   <tr>
     <td><%= ingredient.name %></td>
-    <td><%= ingredient.item %></td>
+    <td>
+        <% ingredient.item.each do |item|  %>
+          <%= item.name %>,
+        <% end %>
+    </td>
     <td><%= link_to 'Show', ingredient %></td>
     <td><%= link_to 'Edit', edit_ingredient_path(ingredient) %></td>
     <td><%= link_to 'Destroy', ingredient, confirm: 'Are you sure?', method: :delete %></td>

@@ -3,6 +3,7 @@ package com.winecheesebeer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -29,13 +30,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.winecheesebeer.models.HashCache;
 import com.winecheesebeer.models.Ingredient;
 import com.winecheesebeer.models.Item;
 import com.winecheesebeer.models.ItemCollection;
 
 public class WineCheeseBeerActivity extends Activity {
 	
-	private ItemCollection<String, Item> ic;
+	private HashMap<String, Item> ic;
 	 
     /** Called when the activity is first created. */
     @Override
@@ -43,8 +45,9 @@ public class WineCheeseBeerActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        ic = new ItemCollection<String, Item>();
-        fillIC();
+        HashCache getter = new HashCache();
+        ic = getter.map;
+        
         Button b = (Button) findViewById(R.id.scan);
         b.setOnClickListener(new OnClickListener() {
 			@Override
@@ -85,49 +88,5 @@ public class WineCheeseBeerActivity extends Activity {
     		ListView lv = (ListView) findViewById(R.id.list);
     		lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingredients));
        }
-    }
-    
-    private void fillIC() {
-    	HttpClient hc = new DefaultHttpClient();
-    	HttpGet g = new HttpGet("http://spencerrthomas.com:8080/items.json");
-    	HttpResponse hr;
-    	String response; 
-    	JSONArray o; 
-    	
-		try {
-			hr = hc.execute(g);
-			response = EntityUtils.toString(hr.getEntity());
-			o = new JSONArray(response);
-			ArrayList<String> ingreds = new ArrayList<String>();
-			for (int i = 0; i < o.length(); i++) {
-				JSONObject j = o.getJSONObject(i);
-				JSONArray jarray;
-				// if exists ingredients
-    			//ArrayList<String> ingreds = new ArrayList<String>();
-
-				try {
-					jarray = j.getJSONArray("ingredients");
-					Item i1 = new Item(j.getString("name"), j.getString("barcode"));
-					
-	    			for (int k = 0; k < jarray.length(); k++) {
-	    				ingreds.add(((JSONObject)jarray.get(k)).getString("name"));
-	    				i1.addIngredient(new Ingredient(((JSONObject)jarray.get(k)).getString("name")));
-	    			}
-	    			ic.put(j.getString("barcode"), i1);
-				} catch (Exception e) {
-					
-				}
-    			
-    	        ListView lv = (ListView) findViewById(R.id.list);
-    	        lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ingreds));
-				((TextView)findViewById(R.id.barCode)).setText(j.getString("name"));
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return;
-		
     }
 }

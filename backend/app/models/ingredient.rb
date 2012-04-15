@@ -1,4 +1,6 @@
 class Ingredient < ActiveRecord::Base
   #attr_accessible :name, :item, :id
-  belongs_to :item
+  has_many :item_ingredients
+  has_many :item,  :through => :item_ingredients
+  validates_uniqueness_of :name
 end

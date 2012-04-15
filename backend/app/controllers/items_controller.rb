@@ -3,9 +3,14 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @items = Item.all
+
+    @items.each do |item|
+       #item.ingredients Ingredient.where(:item_id => item.id)
+    end
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @items }
+      format.json { render :json => @items.to_json(:include => :ingredients) }
     end
   end
 
@@ -22,8 +27,11 @@ class ItemsController < ApplicationController
       @item = Item.find_by_barcode(params[:id])
     end
 
-    @item.ingredients = Ingredient.where(:item_id => @item.id)
+    if @item.nil?
+      @item = Item.new
+    end
 
+    #@item.ingredients = ItemIngredient.where(:item_id => @item.id)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @item.to_json(:include => :ingredients) }
@@ -34,6 +42,8 @@ class ItemsController < ApplicationController
   # GET /items/new.json
   def new
     @item = Item.new
+    10.times { @item.ingredients.build }
+
 
     respond_to do |format|
       format.html # new.html.erb

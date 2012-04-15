@@ -19,6 +19,12 @@
     <%= f.label :barcode %><br />
     <%= f.text_field :barcode %>
   </div>
+    <% @item.ingredients.each_with_index do |ingredient, index| %> <%=  index %>
+        <% f.fields_for :ingredient_attributes, ingredient do |g| %>
+            gdfkj
+            <p><%= g.text_field :name %></p>
+        <% end %>
+    <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

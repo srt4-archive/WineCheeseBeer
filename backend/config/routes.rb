@@ -1,4 +1,6 @@
 WineCheese::Application.routes.draw do
+  resources :item_ingredients
+
   resources :ingredients
 
   resources :items
